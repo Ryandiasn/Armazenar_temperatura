@@ -1,0 +1,3 @@
+fiz as importações com base na aula
+aprendi a fazer o web scraping https://youtu.be/XLkxOBY965w?si=YTuB_9HSHvqncAuJ
+https://books.toscrape.com
