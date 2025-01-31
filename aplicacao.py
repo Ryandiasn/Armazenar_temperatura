@@ -1,78 +1,72 @@
-# # feito com professor aula 
-
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from openpyxl import load_workbook
+from openpyxl import Workbook, load_workbook
 from datetime import datetime
-from tkinter import *
 import tkinter as tk
 
 def coletador_dados_tempo():
+    try:
+        # Configuração do Chrome para evitar bloqueios
+        options = webdriver.ChromeOptions()
+        options.add_argument("--disable-blink-features=AutomationControlled")  # Remove a detecção de automação
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])  # Oculta aviso de automação
+        options.add_experimental_option("useAutomationExtension", False)  # Evita extensões indesejadas
 
-    navegador = webdriver.Edge()
+        # Iniciar o navegador com as opções configuradas
+        navegador = webdriver.Chrome(options=options)
 
-    navegador.get("https://www.google.com")
+        # Acessa o Google e busca a previsão do tempo
+        navegador.get("https://www.google.com")
+        navegador.find_element(By.NAME, 'q').send_keys('Temperatura taboão da serra', Keys.ENTER)
+        navegador.implicitly_wait(5)
 
-    navegador.find_element(By.XPATH, '//*[@id="APjFqb"]').send_keys('Temperatura taboão da serra')
-    navegador.implicitly_wait(5)
-    navegador.find_element(By.XPATH, '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[3]/center/input[1]').send_keys(Keys.ENTER)
-    navegador.implicitly_wait(5)
+        # Coleta os dados de temperatura e umidade
+        temperatura = navegador.find_element(By.XPATH, '//*[@id="wob_tm"]').text
+        umidade = navegador.find_element(By.XPATH, '//*[@id="wob_hm"]').text
+        navegador.quit()
 
-    temperatura = navegador.find_element(By.XPATH, '//*[@id="wob_tm"]').text
-    umidade = navegador.find_element(By.XPATH, '//*[@id="wob_hm"]').text
+        # Exibe os dados no terminal
+        print(f"A temperatura atual de Taboão da Serra é {temperatura}°C e a umidade é {umidade}")
 
-    print(f'A temperatura atual de Taboão da Serra é {temperatura}° e a umidade é {umidade}')
+        # Nome do arquivo Excel
+        arquivo = 'ProjetoTempo.xlsx'
 
+        # Verifica se o arquivo existe, senão cria um novo
+        try:
+            wb = load_workbook(arquivo)
+            sheet = wb.active
+        except FileNotFoundError:
+            wb = Workbook()
+            sheet = wb.active
+            sheet.append(["Temperatura (°C)", "Umidade (%)", "Hora", "Data"])
 
-    # armazenar no excel
+        # Obtém data e hora atual
+        data_atual = datetime.now().strftime('%d-%m-%Y')
+        hora_atual = datetime.now().strftime('%H:%M:%S')
 
-    arquivo = 'ProjetoTempo.xlsx'
+        # Adiciona os dados à planilha
+        sheet.append([temperatura, umidade, hora_atual, data_atual])
+        wb.save(arquivo)
 
-    # Abrindo o arquivo existente
-    wb = load_workbook(arquivo)
-    sheet = wb.active
+        print("Dados armazenados na planilha com sucesso.")
 
-    # Adicionando os dados na próxima linha
-    data_atual = datetime.now().strftime('%d-%m-%Y')
-    hora_atual = datetime.now().strftime('%H:%M:%S')
+    except Exception as e:
+        print(f"Erro ao buscar os dados: {e}")
 
-    # Adicionando os dados na próxima linha vazia
-    sheet.append([temperatura, umidade, hora_atual, data_atual])
-
-    # Salvando o arquivo
-    wb.save(arquivo)
-
-    # Fechar o navegador
-    navegador.quit()
-
-    print("Dados armazenados na planilha com sucesso.")
-
-
-# criando uma gui atraves de gui (unidade 3 - aula 2)
-
+# Interface gráfica com Tkinter
 class Aplicacao:
     def __init__(self):
-        try:
-            self.layout = tk.Tk()
-            self.layout.title("Previsão do Tempo de Taboão da Serra")
-            self.layout.geometry("300x90")
-        
-            self.tela = Frame(self.layout)
-            self.descricao = Label(self.tela, text= "Atualizar temperatura na planilha:")
-            self.salvar = Button(self.tela, text="Buscar previsão", command=coletador_dados_tempo)
-            
-            self.tela.pack()
-            self.descricao.pack()
-            self.salvar.pack()
+        self.layout = tk.Tk()
+        self.layout.title("Previsão do Tempo - Taboão da Serra")
+        self.layout.geometry("350x100")
 
+        self.descricao = tk.Label(self.layout, text="Atualizar temperatura na planilha:", font=("Arial", 12))
+        self.descricao.pack(pady=5)
 
-            self.layout.mainloop()
+        self.salvar = tk.Button(self.layout, text="Buscar previsão", command=coletador_dados_tempo, font=("Arial", 10))
+        self.salvar.pack(pady=2)
 
-        except Exception as e:
-            print(f'Ocorreu um erro: {e}')
+        self.layout.mainloop()
 
-
-executar_app = Aplicacao()
-
+executar_app = Aplicacao() 
