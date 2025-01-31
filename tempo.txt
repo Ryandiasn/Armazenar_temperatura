@@ -1,3 +1,5 @@
 fiz as importações com base na aula
 aprendi a fazer o web scraping https://youtu.be/XLkxOBY965w?si=YTuB_9HSHvqncAuJ
 https://books.toscrape.com
+curso tkinter: https://www.youtube.com/playlist?list=PLqx8fDb-FZDFznZcXb_u_NyiQ7Nai674-
+documentação openpyxl: https://openpyxl.readthedocs.io/en/stable/
