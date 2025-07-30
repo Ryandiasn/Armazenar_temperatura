@@ -1,5 +1,13 @@
-fiz as importações com base na aula
-aprendi a fazer o web scraping https://youtu.be/XLkxOBY965w?si=YTuB_9HSHvqncAuJ
-https://books.toscrape.com
-curso tkinter: https://www.youtube.com/playlist?list=PLqx8fDb-FZDFznZcXb_u_NyiQ7Nai674-
-documentação openpyxl: https://openpyxl.readthedocs.io/en/stable/
+📚 Referências Utilizadas
+
+Web Scraping com Python
+Aula prática de scraping com requests e BeautifulSoup:
+https://youtu.be/XLkxOBY965w
+Site utilizado para teste: Books to Scrape
+
+Curso de Tkinter (Interface Gráfica em Python)
+Playlist no YouTube:
+https://www.youtube.com/playlist?list=PLqx8fDb-FZDFznZcXb_u_NyiQ7Nai674-
+
+Documentação da biblioteca OpenPyXL (para manipulação de planilhas Excel):
+https://openpyxl.readthedocs.io/en/stable/
