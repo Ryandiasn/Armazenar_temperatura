@@ -1,6 +1,6 @@
-# 🌤️ Coletor de Dados Meteorológicos - Taboão da Serra
+# 🌤️ Coletor de Dados Meteorológicos - São Paulo
 
-Um programa simples em Python que coleta dados de temperatura e umidade de Taboão da Serra usando web scraping no Google e salva os dados em uma planilha Excel.
+Um programa simples em Python que coleta dados de temperatura e umidade de São Paulo usando web scraping no Google e salva os dados em uma planilha Excel.
 
 ## 📋 Funcionalidades
 
