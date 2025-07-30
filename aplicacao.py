@@ -18,7 +18,7 @@ def coletador_dados_tempo():
 
         # Acessa o Google e busca a previsão do tempo
         navegador.get("https://www.google.com")
-        navegador.find_element(By.NAME, 'q').send_keys('Temperatura taboão da serra', Keys.ENTER)
+        navegador.find_element(By.NAME, 'q').send_keys('Temperatura são paulo', Keys.ENTER)
         navegador.implicitly_wait(5)
 
         # Coleta os dados de temperatura e umidade
@@ -27,7 +27,7 @@ def coletador_dados_tempo():
         navegador.quit()
 
         # Exibe os dados no terminal
-        print(f"A temperatura atual de Taboão da Serra é {temperatura}°C e a umidade é {umidade}")
+        print(f"A temperatura atual de São Paulo é {temperatura}°C e a umidade é {umidade}")
 
         # Nome do arquivo Excel
         arquivo = 'ProjetoTempo.xlsx'
@@ -58,7 +58,7 @@ def coletador_dados_tempo():
 class Aplicacao:
     def __init__(self):
         self.layout = tk.Tk()
-        self.layout.title("Previsão do Tempo - Taboão da Serra")
+        self.layout.title("Previsão do Tempo - São Paulo")
         self.layout.geometry("350x100")
 
         self.descricao = tk.Label(self.layout, text="Atualizar temperatura na planilha:", font=("Arial", 12))
